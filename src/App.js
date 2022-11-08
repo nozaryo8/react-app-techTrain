@@ -1,25 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { ThreadList } from './ThreadList';
+import { ThreadPost } from './ThreadPost';
+import { InThreadList } from './InThreadList';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App = () => {
+    return (
+        <BrowserRouter>
+            {/* <ThreadList></ThreadList> */}
+            <Routes>
+                <Route exact path="/" element={<ThreadList />} />
+                
+                <Route path="threads/new" element={<ThreadPost />} />
+                <Route path="/threads/:thread_id" element={<InThreadList />} />
+            </Routes>
+        </BrowserRouter>
+    
+    )
+    
 }
 
 export default App;
