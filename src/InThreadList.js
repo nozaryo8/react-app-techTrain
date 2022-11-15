@@ -3,12 +3,13 @@ import axios from 'axios';
 import {
     useParams,
 } from 'react-router-dom';
+import { API_ENDPOINT } from './const/const.js'
 
 export const InThreadList = () => {
     const params = useParams();     // URLのパスパラメータを取得。例えば、 /uses/2 なら、2の部分を取得
     const [inThreads, setInThreads] = useState([]);
     useEffect(() => {
-        axios.get(`https://railway-react-bulletin-board.herokuapp.com/threads/${params.thread_id}/posts`)
+        axios.get(`${API_ENDPOINT}/threads/${params.thread_id}/posts`)
         .then((res) => {
             console.log(res)
             const posts = res.data.posts
@@ -25,7 +26,7 @@ export const InThreadList = () => {
     }
 
     function uploadThread(){
-        axios.post(`https://railway-react-bulletin-board.herokuapp.com/threads/${params.thread_id}/posts`,{"post": post})
+        axios.post(`${API_ENDPOINT}/threads/${params.thread_id}/posts`,{"post": post})
             .then((res) => {
                 console.log("成功")
                 console.log(res)
@@ -38,7 +39,7 @@ export const InThreadList = () => {
     return (
         <div>
             {/* {threads} */}
-            <div className="thread-list">{inThreads.map(t=> <li className="thread">{t.post}</li>)}</div>
+            <div className="thread-list">{inThreads.map(t=> <li key={t.id} className="thread">{t.post}</li>)}</div>
             <div className="post-button-aria">
                 <form>
                     <input type="text" id="text" onChange={changePost} value={post}></input>
